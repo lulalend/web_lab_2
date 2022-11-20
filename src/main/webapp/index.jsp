@@ -1,3 +1,4 @@
+<%@ taglib prefix="ct" uri="/WEB-INF/customTag" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang='ru'>
@@ -13,9 +14,6 @@
     <script type='text/javascript' src='scripts/init.js' defer></script>
     <script type='text/javascript' src='scripts/draw_dots.js' defer></script>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
-    </style>
 </head>
 <body onload='init()'>
 <table id='main'>
@@ -27,7 +25,7 @@
 
         <th id='about' rowspan='5'>
             <div class='about'>
-                <h1>Добро пожаловать!)</h1><br>
+                <h1><ct:changeFormat>Добро пожаловать!)</ct:changeFormat></h1><br>
                 <h3>Функция странички:</h3>
                 <p>
                     Вы можете ввести параметр R (которым задаётся масштаб) и

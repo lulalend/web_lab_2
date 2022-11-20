@@ -6,9 +6,13 @@
         version="2.1">
 
     <tlib-version>1.0</tlib-version>
-    <short-name>myshortname</short-name>
-    <uri>http://mycompany.com</uri>
+    <short-name>ct</short-name>
+    <uri>/WEB-INF/customTag</uri>
 
     <!-- Invoke 'Generate' action to add tags or functions -->
-
+    <tag>
+        <name>changeFormat</name>
+        <tag-class>ru.itmo.lab_2.jstl.ChangeFormatTag</tag-class>
+        <body-content>JSP</body-content>
+    </tag>
 </taglib>
