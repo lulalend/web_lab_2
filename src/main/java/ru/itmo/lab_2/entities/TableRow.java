@@ -14,9 +14,10 @@ public class TableRow implements Serializable {
     private String resultHit;
     @JsonFormat(pattern = "yyyy-MM-dd@HH:mm:ss.SSSSZ")
     private OffsetDateTime clientDate;
-    private double executionTime;
+    private BigDecimal executionTime;
 
-    public TableRow(BigDecimal R, BigDecimal X, BigDecimal Y, String resultHit, OffsetDateTime clientDate, double executionTime) {
+    public TableRow(BigDecimal R, BigDecimal X, BigDecimal Y, String resultHit,
+                    OffsetDateTime clientDate, BigDecimal executionTime) {
         this.R = R;
         this.X = X;
         this.Y = Y;
@@ -45,13 +46,20 @@ public class TableRow implements Serializable {
         return clientDate;
     }
 
-    public double getExecutionTime() {
+    public BigDecimal getExecutionTime() {
         return executionTime;
     }
 
     @Override
     public String toString() {
-        return "TableRow{" + "R=" + R + ", X=" + X + ", Y=" + Y + ", resultHit='" + resultHit + '\'' + ", executionTime=" + executionTime + '}';
+        return "TableRow{" +
+                "R=" + R +
+                ", X=" + X +
+                ", Y=" + Y +
+                ", resultHit='" + resultHit + '\'' +
+                ", clientDate=" + clientDate +
+                ", executionTime=" + executionTime +
+                '}';
     }
 
     public List<TableRow> toList() {

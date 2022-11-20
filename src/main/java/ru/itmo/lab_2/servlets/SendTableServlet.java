@@ -25,6 +25,8 @@ public class SendTableServlet extends HttpServlet {
     @Override
     protected void doGet( HttpServletRequest request, HttpServletResponse response )
             throws IOException {
+        // exactly after controllerServlet because of CheckURLFilter
+
         HttpSession session = request.getSession();
         if ( !session.isNew() ) {
             response.setStatus( HttpServletResponse.SC_OK );

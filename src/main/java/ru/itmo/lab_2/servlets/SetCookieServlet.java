@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SetCookieServlet extends HttpServlet {
     @Override
     protected void doGet( HttpServletRequest request, HttpServletResponse response ) {
+        // exactly after controllerServlet because of CheckURLFilter
         Cookie cookie = new Cookie( "ACCEPT_COOKIE", "true" );
         response.addCookie( cookie );
         response.setStatus( HttpServletResponse.SC_OK );

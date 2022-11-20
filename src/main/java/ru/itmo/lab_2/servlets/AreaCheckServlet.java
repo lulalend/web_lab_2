@@ -12,15 +12,16 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
-
 
 @WebServlet(name = "AreaCheckServlet", value = "/area-check")
 public class AreaCheckServlet extends HttpServlet {
     private static final String CONTENT_TYPE_JSON = "application/json";
     private static final String ENCODING = "UTF-8";
-    private ObjectMapper mapper = new ObjectMapper();
+    private static final String UTC_TIMEZONE = "+0";
+    private final ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -31,6 +32,7 @@ public class AreaCheckServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
+        // exactly after controllerServlet because of CheckURLFilter
 
         double startTime = System.nanoTime();
 
@@ -42,7 +44,7 @@ public class AreaCheckServlet extends HttpServlet {
 
         Cookie[] requestCookies = request.getCookies();
         String acceptCookie = "false";
-        ZoneOffset clientZone = ZoneOffset.of("+0");
+        ZoneOffset clientZone = ZoneOffset.of(UTC_TIMEZONE);
 
         for (Cookie cookie : requestCookies) {
             if (cookie.getName().equals("TIMEZONE"))
@@ -53,10 +55,10 @@ public class AreaCheckServlet extends HttpServlet {
         }
 
         OffsetDateTime clientTime = OffsetDateTime.now(clientZone);
-        double executedTime = (System.nanoTime() - startTime)/1000000d;
+        BigDecimal executedTime = BigDecimal.valueOf((System.nanoTime() - startTime)/1000000d);
 
         TableRow tableRow = new TableRow(R, X, Y, resultHit, clientTime,
-                Math.ceil(executedTime * Math.pow(10, 2))/Math.pow(10, 2) );
+                 executedTime.setScale(2, RoundingMode.DOWN));
 
 
         if (acceptCookie.equals("true")) {
